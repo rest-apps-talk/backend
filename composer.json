@@ -21,7 +21,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Lcobucci\\BlogMV\\Api\\": ["src", "test"]
+            "Lcobucci\\BlogMV\\": ["src", "test"]
         } 
     }
 }
