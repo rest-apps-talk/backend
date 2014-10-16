@@ -19,6 +19,8 @@ class Comments extends Controller
      */
     public function show($article, $id)
     {
+        $this->response->setContentType('application/json');
+
         $comment = $this->get('comments.repository')->findOneBy(
             [
                 'article' => $this->getArticle($article),
@@ -40,6 +42,8 @@ class Comments extends Controller
      */
     public function listAll($article)
     {
+        $this->response->setContentType('application/json');
+
         return json_encode(
             $this->get('comments.repository')->findBy(
                 ['article' => $this->getArticle($article)]
@@ -66,6 +70,7 @@ class Comments extends Controller
         $path = sprintf('/articles/%d/comments/%d', $article, $comment->getId());
 
         $this->response->setStatusCode(201);
+        $this->response->setContentType('application/json');
         $this->response->headers->add(['Location' => $this->request->getUriForPath($path)]);
 
         return json_encode($comment);
@@ -80,4 +85,32 @@ class Comments extends Controller
     {
         return $this->get('articles.repository')->find($id);
     }
+
+    /**
+     * @Route("/", methods={"OPTIONS"})
+     */
+    public function renderDocCollection()
+    {
+        $this->response->setContentType('application/json');
+        $this->response->headers->set('Allow', 'GET,POST');
+
+        return json_encode(
+            [
+                'GET' => 'Exibe a lista de comentáios do artigo.',
+                'POST' => 'Cria um novo comentário'
+            ]
+        );
+    }
+
+    /**
+     * @Route("/(id)", methods={"OPTIONS"})
+     */
+    public function renderDoc()
+    {
+        $this->response->setContentType('application/json');
+        $this->response->headers->set('Allow', 'GET');
+
+        return json_encode(['GET' => 'Exibe os dados de um coment�rio.']);
+    }
+
 }

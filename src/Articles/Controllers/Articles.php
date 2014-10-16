@@ -37,4 +37,26 @@ class Articles extends Controller
 
         return json_encode($this->get('articles.repository')->findAll());
     }
+
+    /**
+     * @Route("/", methods={"OPTIONS"})
+     */
+    public function renderDocCollection()
+    {
+        $this->response->setContentType('application/json');
+        $this->response->headers->set('Allow', 'GET');
+
+        return json_encode(['GET' => 'Exibe a lista de artigos.']);
+    }
+
+    /**
+     * @Route("/(id)", methods={"OPTIONS"})
+     */
+    public function renderDoc()
+    {
+        $this->response->setContentType('application/json');
+        $this->response->headers->set('Allow', 'GET');
+
+        return json_encode(['GET' => 'Exibe os dados de um artigo.']);
+    }
 }

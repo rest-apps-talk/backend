@@ -14,6 +14,7 @@ class CorsFilter extends Filter
     public function process()
     {
         $this->response->headers->set('Access-Control-Allow-Origin', '*');
-        $this->response->headers->set('Access-Control-Expose-Headers', 'Content-Type, Location');
+        $this->response->headers->set('Access-Control-Allow-Headers', 'Content-Type');
+        $this->response->headers->set('Access-Control-Expose-Headers', 'Content-Type, Location, Allow');
     }
 }
